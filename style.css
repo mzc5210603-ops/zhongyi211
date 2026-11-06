@@ -1,0 +1,201 @@
+/* ═══ 翻牌屏 · 时刻车间 —— Solari 翻页牌风 ═══ */
+:root {
+  --frame: #17181a;      /* 牌墙炭黑 */
+  --frame2: #222427;
+  --flap: #ece3c6;       /* 字符板米黄 */
+  --flap-dk: #d4c9a4;
+  --letter: #191712;
+  --yellow: #e5b524;
+  --red: #c8392e;
+  --mono: "Consolas", "Courier New", monospace;
+  --sans: "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--frame);
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--flap);
+  font-family: var(--sans);
+  min-height: 100vh;
+  padding-bottom: 64px;
+}
+
+/* ── 顶部门楣 ── */
+.marquee-head {
+  padding: 30px 6% 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  flex-wrap: wrap;
+}
+.board-title h1 {
+  font-size: clamp(30px, 5vw, 50px); font-weight: 900; letter-spacing: 10px;
+}
+.board-title h1 span {
+  margin-left: 14px; font-size: 12px; letter-spacing: 4px;
+  background: var(--yellow); color: var(--letter);
+  padding: 4px 10px; vertical-align: 14px;
+}
+.sub { margin-top: 8px; font-size: 13px; letter-spacing: 4px; color: #8f8a76; }
+
+/* ── 翻牌卡 ── */
+.card {
+  display: inline-block; position: relative;
+  width: 52px; height: 74px;
+  background: linear-gradient(var(--flap) 48%, var(--flap-dk) 52%);
+  border: 3px solid #0c0d0e; border-radius: 6px;
+  box-shadow: 0 4px 0 #000, inset 0 -3px 0 rgba(0,0,0,.15);
+  text-align: center; overflow: hidden;
+}
+.card::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 2px; background: rgba(0,0,0,.35);
+}
+.card i {
+  font-style: normal; font-family: var(--mono); font-weight: 900;
+  font-size: 52px; line-height: 74px; color: var(--letter);
+  display: inline-block;
+}
+.card.lg { width: 74px; height: 104px; }
+.card.lg i { font-size: 72px; line-height: 104px; }
+.card.flip { animation: flapDown .22s ease-in; }
+@keyframes flapDown {
+  0%   { transform: rotateX(0); }
+  50%  { transform: rotateX(88deg); }
+  50.1%{ transform: rotateX(-88deg); }
+  100% { transform: rotateX(0); }
+}
+.colon {
+  font-family: var(--mono); font-weight: 900; font-size: 44px;
+  color: var(--yellow); margin: 0 6px; vertical-align: 12px;
+}
+.big-clock .card { margin: 0 2px; }
+.big-clock .card i { text-shadow: 0 2px 0 rgba(0,0,0,.2); }
+
+/* ── 工具切换 ── */
+.switcher {
+  margin: 0 6% 24px; display: flex; gap: 8px; flex-wrap: wrap;
+}
+.switcher button {
+  font-family: var(--sans); font-size: 14px; font-weight: 700; letter-spacing: 3px;
+  background: var(--frame2); color: #9a947e;
+  border: 2px solid #0c0d0e; border-radius: 4px;
+  padding: 10px 22px; cursor: pointer;
+  box-shadow: 0 3px 0 #000;
+}
+.switcher button:hover { color: var(--flap); }
+.switcher button.on {
+  background: var(--yellow); color: var(--letter);
+  box-shadow: 0 3px 0 #6b5410;
+}
+.switcher button:active { transform: translateY(2px); box-shadow: 0 1px 0 #000; }
+
+main { padding: 0 6%; }
+.view h2 { font-size: 20px; letter-spacing: 6px; margin-bottom: 16px; color: var(--yellow); }
+
+/* ── 番茄钟 ── */
+.phase-strip {
+  display: inline-block; margin-bottom: 16px;
+  background: var(--red); color: #fff;
+  font-size: 14px; font-weight: 700; letter-spacing: 6px;
+  padding: 6px 18px; border: 2px solid #0c0d0e; box-shadow: 0 3px 0 #000;
+}
+.phase-strip.rest { background: #2f7d4f; }
+.mid-clock { margin-bottom: 20px; }
+.mid-clock .card { margin: 0 2px; }
+
+/* ── 控制台 ── */
+.ctl {
+  background: var(--frame2); border: 2px solid #0c0d0e; border-radius: 4px;
+  box-shadow: 0 4px 0 #000; padding: 18px;
+}
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.row:last-child { margin-bottom: 0; }
+.lab { font-size: 13px; letter-spacing: 2px; color: #9a947e; min-width: 40px; }
+.mono { font-family: var(--mono); font-size: 13px; color: #b6af95; line-height: 1.9; }
+
+input[type="number"], input[type="text"], input[type="date"], select {
+  font-family: var(--mono); font-size: 14px;
+  background: var(--flap); color: var(--letter);
+  border: 2px solid #0c0d0e; border-radius: 3px; padding: 8px 10px; outline: none;
+}
+input:focus, select:focus { box-shadow: 0 0 0 2px var(--yellow); }
+input[type="checkbox"] { accent-color: var(--yellow); }
+
+.btn {
+  font-family: var(--sans); font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  background: var(--red); color: #fff; border: 2px solid #0c0d0e; border-radius: 3px;
+  padding: 10px 24px; cursor: pointer; box-shadow: 0 3px 0 #000;
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #000; }
+.btn.ghost { background: var(--frame2); color: var(--flap); }
+.btn.warn { background: var(--frame2); color: var(--red); }
+
+/* ── 倒数日 ── */
+.cd-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 16px; }
+.cd-item {
+  background: var(--frame2); border: 2px solid #0c0d0e; border-radius: 4px;
+  box-shadow: 0 4px 0 #000; padding: 16px;
+}
+.cd-item h3 { font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
+.cd-item .days { display: flex; align-items: center; gap: 6px; }
+.cd-item .days .card { width: 40px; height: 58px; }
+.cd-item .days .card i { font-size: 34px; line-height: 58px; }
+.cd-item .days em {
+  font-style: normal; font-size: 13px; color: #9a947e; letter-spacing: 2px; margin-left: 4px;
+}
+.cd-item .when { font-family: var(--mono); font-size: 12px; color: #9a947e; margin-top: 10px; }
+.cd-item .del {
+  float: right; background: none; border: none; color: #6e6959;
+  font-size: 16px; cursor: pointer;
+}
+.cd-item .del:hover { color: var(--red); }
+.cd-item.past h3 { color: #9a947e; }
+
+/* ── 摇号机 ── */
+.ball-wall { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.ball-wall .card { margin: 0; }
+.ball-wall .card i { color: var(--red); }
+.ball-wall .card.done i { color: var(--letter); }
+#loInfo { min-height: 24px; }
+
+/* ── 骰子桌 ── */
+.dice-wall { display: flex; flex-wrap: wrap; gap: 14px; margin: 18px 0; }
+.die {
+  width: 84px; height: 84px;
+  background: var(--flap); border: 3px solid #0c0d0e; border-radius: 10px;
+  box-shadow: 0 4px 0 #000;
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+  padding: 10px;
+}
+.die.flip { animation: flapDown .22s ease-in; }
+.pip { width: 14px; height: 14px; border-radius: 50%; background: var(--letter); align-self: center; justify-self: center; }
+.die.red .pip { background: var(--red); }
+.sum-line { font-size: 20px; font-weight: 700; color: var(--yellow); margin-bottom: 12px; }
+.di-log { list-style: none; font-family: var(--mono); font-size: 13px; color: #b6af95; }
+.di-log li { padding: 4px 0; border-bottom: 1px dotted rgba(236,227,198,.15); }
+.di-log b { color: var(--flap); }
+
+/* ── 世界钟 ── */
+.world-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.world-list li {
+  background: var(--frame2); border: 2px solid #0c0d0e; border-radius: 4px;
+  box-shadow: 0 4px 0 #000; padding: 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.world-list .city { font-size: 16px; font-weight: 700; letter-spacing: 3px; }
+.world-list .zone { font-family: var(--mono); font-size: 11px; color: #8f8a76; display: block; margin-top: 4px; letter-spacing: 1px; }
+.world-list .clock .card { width: 34px; height: 50px; margin: 0 2px; }
+.world-list .clock .card i { font-size: 30px; line-height: 50px; }
+.world-list .clock .colon { font-size: 26px; vertical-align: 6px; margin: 0 2px; }
+
+/* ── 底部状态轨 ── */
+.rail {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center; gap: 12px;
+  background: #0c0d0e; border-top: 2px solid #2c2e31;
+  padding: 11px 6%; z-index: 50;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: #8f8a76;
+}
+.st-dots { flex: 1; border-bottom: 1px dotted rgba(236,227,198,.25); height: 1px; }

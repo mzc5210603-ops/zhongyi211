@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翻牌屏 · 时刻车间</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="marquee-head">
+  <div class="board-title">
+    <h1>翻牌屏<span>SOLARI&nbsp;No.26</span></h1>
+    <p class="sub">时刻车间　·　机械翻牌　·　全部本地运转</p>
+  </div>
+  <div class="big-clock" id="bigClock">
+    <span class="card" data-v=""><i>0</i></span><span class="card" data-v=""><i>0</i></span>
+    <span class="colon">:</span>
+    <span class="card" data-v=""><i>0</i></span><span class="card" data-v=""><i>0</i></span>
+    <span class="colon">:</span>
+    <span class="card" data-v=""><i>0</i></span><span class="card" data-v=""><i>0</i></span>
+  </div>
+</header>
+
+<nav class="switcher" id="switcher">
+  <button class="on" data-t="pomodoro">番茄钟</button>
+  <button data-t="countdown">倒数日</button>
+  <button data-t="lottery">摇号机</button>
+  <button data-t="dice">骰子桌</button>
+  <button data-t="world">世界钟</button>
+</nav>
+
+<main>
+
+  <section class="view" id="v-pomodoro">
+    <div class="phase-strip" id="pomoPhase">专注时段</div>
+    <div class="mid-clock" id="pomoClock">
+      <span class="card lg" data-v=""><i>0</i></span><span class="card lg" data-v=""><i>0</i></span>
+      <span class="colon">:</span>
+      <span class="card lg" data-v=""><i>0</i></span><span class="card lg" data-v=""><i>0</i></span>
+    </div>
+    <div class="ctl">
+      <div class="row"><span class="lab">专注</span><input type="number" id="poW" value="25" min="1" max="90" style="width:70px"><span>分</span>
+        <span class="lab" style="min-width:auto">小憩</span><input type="number" id="poR" value="5" min="1" max="30" style="width:70px"><span>分</span></div>
+      <div class="row"><button class="btn" id="poStart">启动</button>
+        <button class="btn ghost" id="poPause">暂停</button>
+        <button class="btn ghost" id="poReset">复位</button>
+        <button class="btn warn" id="poSkip">跳过本段</button></div>
+      <div class="row mono" id="poInfo"></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-countdown" hidden>
+    <div class="ctl">
+      <div class="row"><span class="lab">事项</span><input type="text" id="cdName" placeholder="如：项目上线" style="width:180px">
+        <span class="lab" style="min-width:auto">日期</span><input type="date" id="cdDate">
+        <button class="btn" id="cdAdd">挂牌</button></div>
+    </div>
+    <ul class="cd-list" id="cdList"></ul>
+  </section>
+
+  <section class="view" id="v-lottery" hidden>
+    <div class="ctl">
+      <div class="row"><span class="lab">起</span><input type="number" id="loMin" value="1" style="width:90px">
+        <span class="lab" style="min-width:auto">止</span><input type="number" id="loMax" value="35" style="width:90px">
+        <span class="lab" style="min-width:auto">个数</span><input type="number" id="loN" value="6" min="1" max="12" style="width:70px">
+        <label><input type="checkbox" id="loNoDup" checked> 不重复</label></div>
+      <div class="row"><button class="btn" id="loGo">开摇</button>
+        <button class="btn ghost" id="loAgain">再摇一轮</button></div>
+    </div>
+    <div class="ball-wall" id="loWall"></div>
+    <div class="mono" id="loInfo">按下「开摇」，翻牌滚动后落定。</div>
+  </section>
+
+  <section class="view" id="v-dice" hidden>
+    <div class="ctl">
+      <div class="row"><span class="lab">骰数</span>
+        <select id="diN"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select>
+        <button class="btn" id="diGo">掷骰</button>
+        <button class="btn ghost" id="diClear">清记录</button></div>
+    </div>
+    <div class="dice-wall" id="diWall"></div>
+    <div class="mono sum-line" id="diSum"></div>
+    <ul class="di-log" id="diLog"></ul>
+  </section>
+
+  <section class="view" id="v-world" hidden>
+    <ul class="world-list" id="worldList"></ul>
+  </section>
+
+</main>
+
+<footer class="rail">
+  <span id="stDate">—</span>
+  <span class="st-dots"></span>
+  <span id="stMsg">翻牌屏 · 运转中</span>
+</footer>
+
+<div id="errSink" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
